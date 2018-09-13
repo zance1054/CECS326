@@ -13,19 +13,19 @@ struct Data
 
 int main()
 {
-	const string MAIN_MENU = 	"Select a number from the list below\n"
+	const string mainMenu = 	"Select a number from the list below\n"
                             "1: Access a Pointer\n"
             								"2: List Deallocated Memory(index)\n"
 								            "3: Deallocate All Memory\n"
 								            "4: Exit\n";
 
-	const string SUB_MENU =   "Select a number from the list below\n"
+	const string accessMenu =   "Select a number from the list below\n"
                             "1: Print First Ten Characters in the Chosen Array\n"
 							              "2: Delete All Characters in the Chosen Array\n"
 							               "3: Return to the Main Menu\n";
 	Data data;
-	int mainMenuInput;
-	int subMenuInput;
+	int mainInput;
+	int subInput;
 
 
 	initialIntArray(data.intArray, 20, 0, 200);
@@ -38,14 +38,14 @@ int main()
 
 	do
 	{
-		mainMenuInput = validate(MAIN_MENU, 1, 4);
+		mainInput = validate(mainMenu, 1, 4);
 
-		switch(mainMenuInput)
+		switch(mainInput)
 		{
 		case 1:
 			do
 			{
-				int arrayNumber = validate("Which array would you like to access(1-20)? ", 1, 20) - 1;
+				int arrayNumber = validate("Choose an array to access (1-20)? ", 1, 20) - 1;
 
 				if(*data.charArray == NULL)
 				{
@@ -59,13 +59,13 @@ int main()
 				}
 				else if(*(data.charArray + arrayNumber) == NULL)
 				{
-					cout << "There is no data in the specified array, re-initializing...\n";
+					cout << "There is no data in the specified array\n";
 					*(data.charArray + arrayNumber) = singleInitializeCharPointerMem(*(data.charArray + arrayNumber), data.intArray[arrayNumber]);
 				}
-				subMenuInput = validate(SUB_MENU, 1, 3);
-				cout << subMenuInput << endl;
+				subInput = validate(accessMenu, 1, 3);
+				cout << subInput << endl;
 
-				switch(subMenuInput)
+				switch(subInput)
 				{
 				case 1:
 					printFirstTen(*(data.charArray + arrayNumber), 10);
@@ -80,12 +80,12 @@ int main()
 				default:
 					break;
 				}
-			}while(subMenuInput != 3);
+			}while(subInput != 3);
 			break;
 		case 2:
 			break;
 		case 3:
-			cout << "Deleting all characters from memory\n";
+			cout << "Deleting all characters\n";
 
 			deleteAll(data.charArray);
 			break;
@@ -96,7 +96,7 @@ int main()
 			cout << "outer default\n";
 			break;
 		}
-	} while(mainMenuInput != 4);
+	} while(mainInput != 4);
 
 	return 0;
 }
@@ -153,7 +153,7 @@ bool printFirstTen(char *charAr, int length)
 	}
 	else
 	{
-		cout << "Printing first ten characters: ";
+		cout << "First ten characters: ";
 		for(int i = 0;i < 10;i++)
 		{
 			cout << *(charAr + i);
@@ -186,17 +186,17 @@ char* singleInitializeCharPointerMem(char *charPtr, int arLength)
 	return charPtr;
 }
 
-int initialIntArray(int intAr[20], int finalLocation, int currentLocation, int value)
+int initialIntArray(int arr[20], int Last, int curr, int value)
 {
-	if(currentLocation == finalLocation) //exit case
+	if(curr == Last)
 	{
 		return value * 2;
 	}
 	else
 	{
-		intAr[currentLocation] = value;
+		arr[curr] = value;
 		value*=2;
-		currentLocation++;
-		return initialIntArray(intAr, finalLocation, currentLocation, value);
+		curr++;
+		return initialIntArray(arr, Last, curr, value);
 	}
 }
