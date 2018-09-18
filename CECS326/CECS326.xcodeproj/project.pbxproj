@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		49E29F87214A242E00F76572 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49E29F86214A242E00F76572 /* main.cpp */; };
+		49E29F8E214A245300F76572 /* assn1CECS326.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49E29F8D214A245300F76572 /* assn1CECS326.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		49E29F83214A242D00F76572 /* CECS326 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CECS326; sourceTree = BUILT_PRODUCTS_DIR; };
 		49E29F86214A242E00F76572 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		49E29F8D214A245300F76572 /* assn1CECS326.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = assn1CECS326.cpp; path = ../../assn1CECS326.cpp; sourceTree = "<group>"; };
+		49E29F8F214A245E00F76572 /* ass1CECS326.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ass1CECS326.hpp; path = ../../ass1CECS326.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				49E29F86214A242E00F76572 /* main.cpp */,
+				49E29F8F214A245E00F76572 /* ass1CECS326.hpp */,
+				49E29F8D214A245300F76572 /* assn1CECS326.cpp */,
 			);
 			path = CECS326;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49E29F8E214A245300F76572 /* assn1CECS326.cpp in Sources */,
 				49E29F87214A242E00F76572 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

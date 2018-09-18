@@ -88,7 +88,7 @@ int main()
 			}while(subInput != 3);
 			break;
 		case 2:
-			cout<< "Arrays that were deleted:"<< endl;
+			cout<< "Arrays that were deleted: here"<< endl;
 
 			for(int i = 0; i < 20; i++)
 			{
