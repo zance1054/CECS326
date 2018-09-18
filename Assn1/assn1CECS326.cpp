@@ -28,10 +28,7 @@ int main()
 	int subInput;
 
 
-	initialIntArray(data.intArray, 20, 0, 200);
-
-	int deleted[20];
-	int spot = 0;
+	initialIntArray(data.intArray, 20, 0, 2700);
 
 	data.charArray = new char * [20];
 	for(int i = 0; i < 20; i++)
@@ -77,26 +74,25 @@ int main()
 					cout << "Deleting all characters in array #" << (arrayNumber + 1) << endl;
 					delete[] *(data.charArray + arrayNumber);
 					*(data.charArray + arrayNumber) = NULL;
-					deleted[spot] = arrayNumber;
-					spot = spot + 1;
 					break;
 				case 3:
 					cout << "returning to main menu\n";
 				default:
-					break;3
+					break;
 				}
 			}while(subInput != 3);
 			break;
 		case 2:
-			cout<< "Arrays that were deleted: here"<< endl;
+			cout<< "Arrays where charachters were deleted: "<< endl;
 
 			for(int i = 0; i < 20; i++)
 			{
-				if(data.intArray[i] == NULL):
+				if(*(data.charArray + i) == NULL)
+				{
+					cout<< "Array:";
 					cout<< i << endl;
+				}
 			}
-
-			cout<< deleted<<endl;
 
 			break;
 		case 3:
