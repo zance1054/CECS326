@@ -102,7 +102,6 @@ int main()
 			break;
 		case 4:
 			cout << "Exiting Program.\n";
-			deleteAll(data.charArray);
 			break;
 		default:
 			cout << "outer default\n";
