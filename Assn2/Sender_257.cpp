@@ -1,10 +1,8 @@
 //Andre Barajas
 //CS 326
-//IPC Message Queue
 //Fall 2018
+//IPC Message Queue Program Sender 257 to send messages to Receiver programs via message buffers
 
-
-//loading needed libraries
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
@@ -23,43 +21,39 @@ int rand();
 int main()
 {
 
-    srand (time(NULL));
-
-
-	
-	int key;
-
-    // Retrieving extant queue other program
+    // Retreiving extant queue 
     int qid = msgget(ftok(".",'u'), 0);
-
-    // declare my message buffer and its size
+	string decision;
+	int value;
+    srand (time(NULL));
+    // Structure buffer to hold mesage informtion 
 	struct buf
 	{
-		long mtype; // required
-		char message[50]; // mesg content
-		bool receiverRunning; //flag to check receiver status
-	};
+		long mtype; 
+		char message[50]; // Message information no more than fifty chars long 
+		bool receiverRunning; //receiver check 
+	};//Ending buffer structure
 
 	buf msg;
 	int size = sizeof(msg)-sizeof(long);
 
 	msg.receiverRunning = true;
 
-	cout << "Hello World: This Is Sender 257"<<endl;
+	cout << "\t\t***********Hello World, This Is Sender 257**************"<<endl;
 
 	while(msg.receiverRunning)
 	{
-		key = rand();
-		if(key % 257 == 0)
+		value = rand();
+		if(value % 257 == 0)
 		{
-			cout << "Sended : "<< key <<endl;
-			string m = "257: " + to_string(key);
+			cout << "Sended : "<< value <<endl;
+			string m = "257: " + to_string(value);
 			strcpy(msg.message, m.c_str());
 			msg.mtype = 118;
 			msgsnd(qid, (struct msgbuf *)&msg, size, 0);
 			msgrcv(qid, (struct msgbuf *)&msg, size, 120, 0);
-		}//Ending if condition statement
-	}//Ending while loop statment
-	cout << "\n\t\t*********Receiver 2 Has Left:/, Exiting**********"<<endl;
+		}//Ending if condition
+	}//Ending while statement
+	cout << "\n\t\t***********Terminating Receiver 2**************"<<endl;
     return 0;
-}//Ending main method
+}//Ending main method for sender 257 

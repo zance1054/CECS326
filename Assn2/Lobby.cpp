@@ -1,9 +1,9 @@
 //Andre Barajas
 //CS 326
-//IPC Message Queue 
 //Fall 2018
+//IPC Message Queue program to communicate with receiver one and two via Senders 997, 257 etc. 
 
-//Downloading needed libraries
+
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
@@ -17,35 +17,36 @@ using namespace std;
 
 int main() 
 {   
-    // ftok() will generate a queue for the process
+    // Employing ftok() method to generate a queue for receviers
+    //and senders.
 	int qid = msgget(ftok(".",'u'), IPC_EXCL|IPC_CREAT|0600);
-    	cout << "Created cQueue ....\n" <<endl;
+    cout << "\t\t*********Initiating Queue Now************\n" <<endl;
 
-    
+
     string messageFromQueue, identifier, realMessage;
    
-    // buffer with the message contents
+    // buffer structure to hold message data
 	struct buf
 	{
 		long mtype; 
-		char message[50]; // Message information
+		char message[50]; // message information
 	};
 
-	buf data;	//creating instance of buffer
+	buf msg;	//initializes instance of buffer
 	int size = sizeof(msg)-sizeof(long);
 
-    // standing by for receivers to end before clearing queue
+    // standing by for Current Receivers to finish and then clearing the existing queue
     msgrcv(qid, (struct msgbuf *)&msg, size, 326, 0);
 
-    cout << data.message << endl;
+    cout << msg.message << endl;
 
     msgrcv(qid, (struct msgbuf *)&msg, size, 326, 0);
     
-    cout << data.message << "\n"<< endl;
+    cout << msg.message << "\n"<< endl;
 
-    cout << "Receivers Are All dequed, Deleting Queue now...." << endl;
+    cout << "\t\t********Receivers Leaving, Removing Queue************" << endl;
 
-    //Deleting message queue
+   //Removing message queue 
     msgctl (qid, IPC_RMID, NULL);
 
 

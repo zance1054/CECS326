@@ -1,9 +1,7 @@
 //Andre Barajas
-//CS 326
-//IPC Message Queue
+//CS 326 
 //Fall 2018
-
-//Loading needed libaries
+//IPC message queue program Sender_251 class to send messages to receiver programs via message queue buffers
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
@@ -15,7 +13,7 @@
 #include <time.h>
 #include <signal.h>
 #include <unistd.h>
-#include "Get_Info.h"
+#include "get_info.h"
 
 using namespace std;
 
@@ -25,35 +23,31 @@ void get_info(int, struct msgbuf *, int, long);
 int main()
 {
 	
-    srand (time(NULL));
 
-	
-	bool menu = true;
-
-	
 	string decision;
-
-    // Structure to hold message information
+	 srand (time(NULL));
+	bool keepGoing = true;
+    	// Buffer structure to hold message information to be used in active message queues
 	struct buf 
 	{
 		long mtype; 
-		char message[50]; // Message infomation
+		char message[50]; // message information
 	};
 	buf msg;
 	int size = sizeof(msg)-sizeof(long);
 
-    // Retrieving extant queue from other program
+    // Retreiving extant queue 
     int qid = msgget(ftok(".",'u'), 0);
 	
-	// Patch Code provided by professor Ngo (i.e. patch64-18.o) to terminate Receiver 1 after kill command
+	// Provided Patch Code from prof Ngo fror Ubunto64-18.o used to terminate Receiver 1 when kill command is used
 	strcpy(msg.message, "251: quit");
 	msg.mtype = 117;
 	get_info(qid, (struct msgbuf *)&msg, size, 117);
 
-	cout << "Hello World, This Is Sender 251"<<endl;
-	while(menu)
+	cout << "\t\t*********Hello World, This Is Sender 251***********"<<endl;
+	while(keepGoing)
 	{
-		
+
 		int tempNumber = rand();
 		if (tempNumber % 251 == 0)
 		{
@@ -67,8 +61,8 @@ int main()
 		else
 		{
 			cout.width(15); 
-			cout<< left << tempNumber << " : Trash"<<endl;
+			cout<< left << tempNumber << " : Recycle Bin"<<endl;
 		}//Ending nested if else statement
-	} //Ending while loop
+	} //Ending While statement
     return 0;
-}
+}//Ending main method

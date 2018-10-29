@@ -1,10 +1,7 @@
 //Andre Barajas
-//CS 326
-//IPC Message Queue
+//CS 326 
 //Fall 2018
-
-//Loading needed libraries
-
+//IPC Message Queue to send message to handle receiver and sender signals 
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
@@ -19,72 +16,72 @@ using namespace std;
 int main()
 {
     
+
+
 	
-	// Variables
 	string decision;
-  	string messageFromQueue;
+  string messageFromQueue;
 	string realMessage;
 	string identifier;
-	bool menu = true;
-
-	// buffer with the message information
+		bool keepGoing = true;
+	//Buffer structure to hold message information to be used in active queues 
 	struct buf
 	{
 		long mtype; 
-		char message[50]; // message data
-		bool receiverRunning; 
+		char message[50]; //Message information 
+		bool receiverRunning; //Receiver check
 	};
 
-	buf msg;
+	buf msg;	
 	int size = sizeof(msg)-sizeof(long);
 	int msgRcvdCount=0;
 	msg.receiverRunning = true;
 
-	// retrieving extant queue 
+	// Retreiving the extant queue from other programs
 	int qid = msgget(ftok(".",'u'), 0);
-	cout << "Queue Located, Standing By.....\n" <<endl;
-   		 while(menu)
-  		  {
-				msgrcv(qid, (struct msgbuf *)&msg, size, 118, 0);
-				messageFromQueue = msg.message;
-				identifier = messageFromQueue.substr(0,3);
-				realMessage = messageFromQueue.substr(5);
+	cout << "\t\t*********Located Queue , now waiting************\n" <<endl;
+    while(keepGoing)
+    {
+        msgrcv(qid, (struct msgbuf *)&msg, size, 118, 0);
+        messageFromQueue = msg.message;
+	identifier = messageFromQueue.substr(0,3);
+        realMessage = messageFromQueue.substr(5);
 
-				//max messages this program may receive is set to 5000 to quit just in case
-				if(msgRcvdCount==5000)
+				//no more than 5000 or exit will occur
+				if(msgRcvdCount == 5000)
 				{
-					// Sending quit to 257
-					msg.receiverRunning = false;
-					msg.mtype = 120;
-					msgsnd(qid, (struct msgbuf *)&msg, size, 0);
+						// signal send to quit: 257
+						msg.receiverRunning = false;
+						msg.mtype = 120;
+						msgsnd(qid, (struct msgbuf *)&msg, size, 0);
 
-					// Sending Quit to 997
-				   	 strcpy(msg.message, "Receiver 2 Exiting");
-				   	 msg.mtype = 2;
-				   	 msgsnd(qid, (struct msgbuf *)&msg, size, 0);
+						// Sending Quit to 997
+					    strcpy(msg.message, "Receiver 2 Quitted");
+					    msg.mtype = 2;
+					    msgsnd(qid, (struct msgbuf *)&msg, size, 0);
 
-					// Sending quit to Queue Center
-					msg.mtype = 326;
-					strcpy(msg.message, "Receiver 2  Has Now Exited ");
-					msgsnd(qid, (struct msgbuf *)&msg, size, 0);
-				    cout << "\nTerminating Program....."<<endl;
-				    menu = false;
-				}
+						// Sending quit to Queue Center
+						msg.mtype = 326;
+						strcpy(msg.message, "\t\t**********Exit Successful: Receiver 2************");
+						msgsnd(qid, (struct msgbuf *)&msg, size, 0);
+					    cout << "\n\t\t***********Terminating Program***************"<<endl;
+					    keepGoing = false;
+     			        }
 				else if(identifier.compare("997") == 0)
 				{
 					msgRcvdCount++;
 					cout << identifier <<"'s Message Received: "<< realMessage <<endl;
-				  	strcpy(msg.message, "Roger Roger from Receiver 2");
-				 	 msg.mtype = 2;
-					 msgsnd(qid, (struct msgbuf *)&msg, size, 0);
+				        strcpy(msg.message, "confirmed: Receiver 2");
+				        msg.mtype = 2;
+			                msgsnd(qid, (struct msgbuf *)&msg, size, 0);
 				}
 				else
 				{
-					msgRcvdCount++;
-				  	cout << identifier << "'s Message Received: "<<realMessage<<endl;
-					msg.mtype = 120;
-					msgsnd(qid, (struct msgbuf *)&msg, size, 0);
-				}//Ending nested if else statment
-   		 }//Ending while loop statement
+								msgRcvdCount++;
+				 	 cout << identifier << "'s Message Received: "<<realMessage<<endl;
+								msg.mtype = 120;
+								msgsnd(qid, (struct msgbuf *)&msg, size, 0);
+				}//Ending if else statement
+    }//Ending While statement
     return 0;
-}//Ending main method
+}//Ending main method for receiver two 
