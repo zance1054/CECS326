@@ -1,4 +1,6 @@
 //Andre Barajas
+//Tiffany Paiva
+//Alexander Fielding
 //CS 326
 //Fall 2018
 //IPC Message Queue program to communicate with receiver one and two via Senders 997, 257 etc. 
