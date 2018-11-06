@@ -1,4 +1,6 @@
 //Andre Barajas
+//Tiffany Paiva
+//Alexander Fielding
 //CS 326 
 //Fall 2018
 //IPC Message Queue to send message to handle receiver and sender signals 
