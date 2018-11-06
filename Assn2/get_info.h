@@ -1,4 +1,6 @@
-//Andre Barajas 
+//Andre Barajas
+//Tiffany Paiva
+//Alexander Fielding
 //CS 326
 //Fall 2018
 //IPC program header to be linked and utilized in other classes in dire.
