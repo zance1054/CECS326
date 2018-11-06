@@ -1,4 +1,6 @@
 //Andre Barajas
+//Tiffany Paiva
+//Alexander Fielding
 //CS 326 
 //Fall 2018
 //IPC message queue program Sender_251 class to send messages to receiver programs via message queue buffers
