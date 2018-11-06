@@ -1,9 +1,9 @@
-/* 
+/*
 
 This is a simple illustration of the use of:
 	ftok, msgget, msgsnd, msgrcv
 
-Program A will use a message queue created by Program B. 
+Program A will use a message queue created by Program B.
 Then, they will pass messages back and forth.
 
 Program A sends the first message and reads the reply. Program A
@@ -29,28 +29,29 @@ int main() {
 	// pause Program A
 	sleep(3); 	// BAD programming - unreliable and potential bug
 			// do NOT use
-
-	int qid = msgget(ftok(".",'u'), 0);
+	// generate a key assoc with queue/ same key used to create queue
+	int qid = msgget(ftok(".",'u'), 0); //find queue insystem with the key from the ftok
 
 	// declare my message buffer
 	struct buf {
-		long mtype; // required
+		long mtype; // required must be type long
 		char greeting[50]; // mesg content
-	};
+	};	// fixed size, contains message being passed
+
 	buf msg;
-	int size = sizeof(msg)-sizeof(long);
+	int size = sizeof(msg)-sizeof(long);	// memory to be allocated
 
 	// sending garbage
 	msg.mtype = 111;
 	strcpy(msg.greeting, "Fake message");
-	msgsnd(qid, (struct msgbuf *)&msg, size, 0);
+	msgsnd(qid, (struct msgbuf *)&msg, size, 0); // halt until msg copied successfully
 
 	strcpy(msg.greeting, "Another fake");
 	msg.mtype = 113;
 	msgsnd(qid, (struct msgbuf *)&msg, size, 0);
 
 	// prepare my message to send
-	strcpy(msg.greeting, "Hello there");	
+	strcpy(msg.greeting, "Hello there");
 	cout << getpid() << ": sends greeting" << endl;
 	msg.mtype = 117; 	// set message type mtype = 117
 	msgsnd(qid, (struct msgbuf *)&msg, size, 0); // sending
@@ -65,5 +66,3 @@ int main() {
 
 	exit(0);
 }
-
-

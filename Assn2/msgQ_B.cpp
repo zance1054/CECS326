@@ -1,4 +1,4 @@
-/* 
+/*
 
 This is a simple illustration of the use of:
 	ftok, msgget, msgsnd, msgrcv
@@ -27,7 +27,8 @@ using namespace std;
 int main() {
 
 	// create my msgQ with key value from ftok()
-	int qid = msgget(ftok(".",'u'), IPC_EXCL|IPC_CREAT|0600);
+	// generate a a key assoc with queue/ same key used to create sequence
+	int qid = msgget(ftok(".",'u'), IPC_EXCL|IPC_CREAT|0600); //create, owner: Read and Write
 
 	// declare my message buffer
 	struct buf {
@@ -42,7 +43,7 @@ int main() {
 						// don't read "fake" mesg
 	cout << getpid() << ": gets message" << endl;
 	cout << "message: " << msg.greeting << endl;
-	
+
 	strcat(msg.greeting, " and Adios.");
 	cout << getpid() << ": sends reply" << endl;
 	msg.mtype = 314; // only reading mesg with type mtype = 314
@@ -60,3 +61,4 @@ int main() {
 }
 
 
+//every know and then youll have a tie and you need to follow fifo as the tiebreaker
