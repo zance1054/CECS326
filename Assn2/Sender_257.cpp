@@ -1,4 +1,6 @@
 //Andre Barajas
+//Tiffany Paiva
+//Alexander Fielding
 //CS 326
 //Fall 2018
 //IPC Message Queue Program Sender 257 to send messages to Receiver programs via message buffers
