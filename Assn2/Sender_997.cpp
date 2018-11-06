@@ -1,4 +1,6 @@
 //Andre Barajas
+//Tiffany Paiva
+//Alexander Fielding
 //CS 326 
 //Fall 2018
 //IPC Message Queue Program Sender 997 used to send signals to receiver programs via message buffer
